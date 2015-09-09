@@ -7,3 +7,9 @@ Reference Resources
 4. https://leaverou.github.io/awesomplete/ search autocomplete
 5. navigation tree is using http://responsivemultimenu.com/
 6. search box using http://tympanus.net/codrops/2013/06/26/expanding-search-bar-deconstructed/
+
+
+Nice Styles
+===========
+
+1. http://www.cssplay.co.uk/menus/cssplay-responsive-multi-level-two.html pretty nice navigation menu.
