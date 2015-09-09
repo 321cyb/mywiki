@@ -31,6 +31,8 @@ func main() {
 		rootDir = absRootDir
 	}
 
+	startMonDir(rootDir)
+
 	box := rice.MustFindBox("web")
 	staticFileServer := http.StripPrefix("/_static/", http.FileServer(box.HTTPBox()))
 	http.Handle("/_static/", staticFileServer)

@@ -5,8 +5,10 @@ import (
 	"fmt"
 	"net/http"
 	"path/filepath"
+	"strings"
 
 	"github.com/GeertJohan/go.rice"
+	"github.com/PuerkitoBio/goquery"
 	"github.com/russross/blackfriday"
 
 	"gopkg.in/flosch/pongo2.v3"
@@ -14,7 +16,7 @@ import (
 
 func renderMD(uri string, md []byte, w http.ResponseWriter) {
 	extensions := blackfriday.EXTENSION_NO_INTRA_EMPHASIS | blackfriday.EXTENSION_TABLES | blackfriday.EXTENSION_FENCED_CODE | blackfriday.EXTENSION_AUTOLINK | blackfriday.EXTENSION_STRIKETHROUGH | blackfriday.EXTENSION_SPACE_HEADERS
-	content := blackfriday.Markdown(md, blackfriday.HtmlRenderer(blackfriday.HTML_USE_XHTML|blackfriday.HTML_USE_SMARTYPANTS|blackfriday.HTML_SMARTYPANTS_FRACTIONS|blackfriday.HTML_TOC, "", ""), extensions)
+	all := blackfriday.Markdown(md, blackfriday.HtmlRenderer(blackfriday.HTML_USE_SMARTYPANTS|blackfriday.HTML_SMARTYPANTS_FRACTIONS|blackfriday.HTML_TOC, "", ""), extensions)
 
 	t, err := getTemplate("web/md.tpl")
 	if err != nil {
@@ -22,14 +24,45 @@ func renderMD(uri string, md []byte, w http.ResponseWriter) {
 		return
 	}
 
-	err = t.ExecuteWriter(pongo2.Context{"content": string(content)}, w)
+	dirStructure := getCurrentDirStruct()
+	fmt.Printf("%v\n", dirStructure)
+	autoComplete := formatToAutoComplete(dirStructure)
+	navTree := formatToNavTree(dirStructure)
+	fmt.Printf("%v\n", navTree)
+
+	toc, content := splitTOCAndContent(string(all))
+
+	err = t.ExecuteWriter(pongo2.Context{"content": content, "toc": toc, "autoComplete": autoComplete, "navTree": navTree}, w)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 }
 
+func splitTOCAndContent(whole string) (string, string) {
+	rdr := strings.NewReader(whole)
+	doc, err := goquery.NewDocumentFromReader(rdr)
+	if err != nil {
+		return "", ""
+	}
+
+	body := doc.Find("body")
+	nav := body.Find("nav").First()
+	toc, _ := nav.Html()
+
+	nav.Remove()
+	body = doc.Find("body")
+	content, _ := body.Html()
+	return toc, content
+}
+
 func renderSearchPage(w http.ResponseWriter, p *SearchResult) {
+	dirStructure := getCurrentDirStruct()
+	fmt.Printf("%v\n", dirStructure)
+	autoComplete := formatToAutoComplete(dirStructure)
+	navTree := formatToNavTree(dirStructure)
+	fmt.Printf("%v\n", navTree)
+
 	var test []byte
 	t, err := getTemplate("web/search.tpl")
 	if err != nil {
@@ -37,10 +70,10 @@ func renderSearchPage(w http.ResponseWriter, p *SearchResult) {
 	}
 	test, err = json.Marshal(*p)
 	if err == nil {
-
 		fmt.Println(string(test))
 	}
-	err = t.ExecuteWriter(pongo2.Context{"search": p}, w)
+
+	err = t.ExecuteWriter(pongo2.Context{"search": p, "autoComplete": autoComplete, "navTree": navTree}, w)
 	if err != nil {
 		goto internalError
 	}
