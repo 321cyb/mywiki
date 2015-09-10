@@ -5,7 +5,7 @@ Reference Resources
 2. currently using http://mkdocs.org/ cosmo style.
 3. Highlighting a query keyword is using http://www.the-art-of-web.com/javascript/search-highlight/
 4. https://leaverou.github.io/awesomplete/ search autocomplete
-5. navigation tree is using http://responsivemultimenu.com/
+5. navigation tree is using http://codepen.io/andornagy/pen/xhiJH
 6. search box using http://tympanus.net/codrops/2013/06/26/expanding-search-bar-deconstructed/
 
 

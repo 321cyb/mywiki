@@ -24,9 +24,9 @@
 
 
         <div class="row">
-                <div class="rmm style site-nav">
+                <nav class="site-nav">
                     {{navTree | safe}}
-                </div>
+                </nav>
         </div>
 
 

@@ -35,7 +35,7 @@ func scanDir(rootdir string) map[string]anything {
 		}
 
 		var segments []string
-		if runtime.GOOS == "linux" {
+		if runtime.GOOS != "windows" {
 			segments = strings.Split(fname, "/")
 		} else {
 			segments = strings.Split(fname, "\\")
