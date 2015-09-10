@@ -28,30 +28,33 @@ function adaptMenu() {
 		});
 
 		// compare width
-		var width = $('.rmm').css('max-width');
-		width = width.replace('px', ''); 
+		var max_width = $('.rmm').css('max-width');
+		max_width = parseInt(max_width.replace('px', ''), 10); 
 		
-		if ( $(this).parent().width() > width ) {
-			$('.rmm-menu').removeClass("rmm-mobile");
-			
-			//remove all classes from mobile verion
-			$(".rmm-menu ul").removeClass("rmm-subview");
-			$(".rmm-menu li").removeClass("rmm-subover-hidden");
-			$(".rmm-menu li").removeClass("rmm-subover-visible");
-			$(".rmm-menu a").removeClass("rmm-subover-header");
+        //321cyb: I don't want mobile view, and I want the top level one line.
+        var parentWidth = $(this).parent().width();
+        if ( parentWidth < max_width  )  {
+            var scale_ratio  = parentWidth / max_width;
+            $('.rmm-menu').children("li").each(function() {
+                if($(this).parent().hasClass('rmm-menu')){
+                    width = $(this).outerWidth();//outerWidth();
+                    if(width>0){
+                        $(this).outerWidth(width * scale_ratio);
+                    }
+                }
+            });
+        }
 
-			$(".rmm-toggled").removeClass("rmm-closed");
-			$('.rmm-toggled').hide();
-			
-			//$('.rmm-toggled').removeClass("rmm-view");
-			//$('.rmm-toggled').addClass("rmm-closed");
-		}else {
-			$('.rmm-menu').addClass("rmm-mobile");
-			$('.rmm-toggled').show();
-			$('.rmm-toggled').addClass("rmm-closed");
-			
-			//$('.rmm-toggled').removeClass("rmm-closed");
-		}
+        $('.rmm-menu').removeClass("rmm-mobile");
+        
+        //remove all classes from mobile verion
+        $(".rmm-menu ul").removeClass("rmm-subview");
+        $(".rmm-menu li").removeClass("rmm-subover-hidden");
+        $(".rmm-menu li").removeClass("rmm-subover-visible");
+        $(".rmm-menu a").removeClass("rmm-subover-header");
+
+        $(".rmm-toggled").removeClass("rmm-closed");
+        $('.rmm-toggled').hide();
 	});
 }
 

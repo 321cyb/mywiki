@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"time"
 )
@@ -33,7 +34,13 @@ func scanDir(rootdir string) map[string]anything {
 			return nil
 		}
 
-		segments := strings.Split(fname, "/")
+		var segments []string
+		if runtime.GOOS == "linux" {
+			segments = strings.Split(fname, "/")
+		} else {
+			segments = strings.Split(fname, "\\")
+		}
+
 		segmentsSize := len(segments)
 		currentLevel := dirStructure
 		for index, seg := range segments {
@@ -123,6 +130,7 @@ func formatToNavTree(structure map[string]anything) string {
 }
 
 // be careful with HTML and URL encoding.
+// parentPath always ends with slash
 func formatToNavTreeRecursion(structure map[string]anything, parentPath string) string {
 	if len(structure) == 0 {
 		return ""
@@ -135,6 +143,7 @@ func formatToNavTreeRecursion(structure map[string]anything, parentPath string) 
 			href := url.URL{
 				Path: fmt.Sprintf("%s%s", parentPath, key),
 			}
+			fmt.Printf("%v, %v, %v, %v\n", key, value, parentPath, href.String())
 			resultHTML += fmt.Sprintf(`<li><a href="%s">%s</a></li>`, href.String(), html.EscapeString(key))
 			resultHTML += "\n"
 		default:
