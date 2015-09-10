@@ -86,7 +86,7 @@ internalError:
 }
 
 func getTemplate(tpl string) (*pongo2.Template, error) {
-	templateBox, err := rice.FindBox(filepath.Dir(tpl))
+	templateBox, err := rice.FindBox("web")
 	if err != nil {
 		fmt.Println("cannot find box")
 		return nil, err
