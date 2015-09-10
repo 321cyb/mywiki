@@ -48,7 +48,6 @@
 
 
 <footer class="col-md-12">
-    <hr>
     <center>Copyright 321cyb</center>
 </footer>
 
