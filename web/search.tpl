@@ -7,16 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
 
-    <link href="_static/css/bootstrap-custom.min.css" rel="stylesheet">
-    <link href="_static/css/font-awesome-4.0.3.css" rel="stylesheet">
-    <link rel="stylesheet" href="_static/css/highlight.css">
+    <link href="/_static/css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="/_static/css/font-awesome-4.0.3.css" rel="stylesheet">
+    <link rel="stylesheet" href="/_static/css/highlight.css">
 
-    <link href="_static/css/search-box.css" rel="stylesheet">
-    <link href="_static/css/awesomplete.css" rel="stylesheet">
+    <link href="/_static/css/search-box.css" rel="stylesheet">
+    <link href="/_static/css/awesomplete.css" rel="stylesheet">
 
-    <script src="_static/js/jquery-1.10.2.min.js"></script>
-    <link rel="stylesheet" href="_static/css/responsivemultimenu.css" type="text/css"/>
-    <script type="text/javascript" src="_static/js/responsivemultimenu.js"></script>
+    <script src="/_static/js/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="/_static/css/responsivemultimenu.css" type="text/css"/>
+    <script type="text/javascript" src="/_static/js/responsivemultimenu.js"></script>
 
     <link rel="stylesheet" type="text/css" href="/_static/css/search-result-page.css">
 </head>
@@ -27,9 +27,6 @@
                 <div class="rmm style site-nav">
                     {{navTree | safe}}
                 </div>
-            <!--div class="col-md-3">
-                <span class="search"></span>
-            </div-->
         </div>
 
 
@@ -59,8 +56,8 @@
 
 
 
-<script src="_static/js/bootstrap-3.0.3.min.js"></script>
-<script src="_static/js/highlight.pack.js"></script>
+<script src="/_static/js/bootstrap-3.0.3.min.js"></script>
+<script src="/_static/js/highlight.pack.js"></script>
 
 <script type="text/javascript" src="/_static/js/hilitor-utf8.js"></script>
 <script type="text/javascript">
@@ -85,9 +82,9 @@
 </script>
 
 <!-- Added for search box and search box auto complete -->
-<script src="_static/js/awesomplete.js"></script>
-<script src="_static/js/search-box-classie.js"></script>
-<script src="_static/js/search-box.js"></script>
+<script src="/_static/js/awesomplete.js"></script>
+<script src="/_static/js/search-box-classie.js"></script>
+<script src="/_static/js/search-box.js"></script>
 <script type="text/javascript">
     new UISearch( document.getElementById( 'sb-search' ) );
 
